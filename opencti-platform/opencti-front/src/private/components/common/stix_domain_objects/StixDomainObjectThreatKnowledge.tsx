@@ -27,6 +27,10 @@ import {
   StixDomainObjectThreatKnowledgeQueryStixRelationshipsQuery$data,
   StixDomainObjectThreatKnowledgeQueryStixRelationshipsQuery$variables,
 } from '@components/common/stix_domain_objects/__generated__/StixDomainObjectThreatKnowledgeQueryStixRelationshipsQuery.graphql';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import BulkRelationDialog from '@components/common/bulk/BulkRelationDialog';
+import DialogActions from '@mui/material/DialogActions';
 import { QueryRenderer } from '../../../../relay/environment';
 import { monthsAgo } from '../../../../utils/Time';
 import { useFormatter } from '../../../../components/i18n';
@@ -256,8 +260,34 @@ StixDomainObjectThreatKnowledgeProps
     filters: contextFilters,
   };
 
+  // FIXME add FF
+  const [displayBulkModal, setDisplayBulkModal] = useState(false);
+  const handleOpenBulkModal = () => setDisplayBulkModal(true);
+  const handleCloseBulkModal = () => setDisplayBulkModal(false);
+
   return (
     <>
+      <Button
+        onClick={handleOpenBulkModal}
+      >
+        Create bulk relation
+      </Button>
+
+      <Dialog
+        open={displayBulkModal}
+        PaperProps={{ elevation: 1 }}
+      >
+        <BulkRelationDialog
+          stixDomainObjectId={stixDomainObjectId}
+          stixDomainObjectType={stixDomainObjectType}
+        />
+        <DialogActions>
+          <Button onClick={handleCloseBulkModal}>
+            {t_i18n('Cancel')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Grid container={true} spacing={3}>
         <Grid item={true} xs={4} style={{ paddingTop: 10 }}>
           <Card
