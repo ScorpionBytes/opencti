@@ -16,11 +16,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ConnectorsStatusQuery } from '@components/data/connectors/__generated__/ConnectorsStatusQuery.graphql';
 import { ConnectorsStatus_data$key } from '@components/data/connectors/__generated__/ConnectorsStatus_data.graphql';
 import makeStyles from '@mui/styles/makeStyles';
+import { ListItemButton } from '@mui/material';
 import { FIVE_SECONDS } from '../../../../utils/Time';
 import { useFormatter } from '../../../../components/i18n';
 import { commitMutation, MESSAGING$ } from '../../../../relay/environment';
 import Security from '../../../../utils/Security';
-import { MODULES_MODMANAGE } from '../../../../utils/hooks/useGranted';
+import useGranted, { MODULES_MODMANAGE } from '../../../../utils/hooks/useGranted';
 import { connectorDeletionMutation, connectorResetStateMutation } from './Connector';
 import ItemBoolean from '../../../../components/ItemBoolean';
 import type { Theme } from '../../../../components/Theme';
@@ -153,6 +154,7 @@ const ConnectorsStatusComponent: FunctionComponent<ConnectorsStatusComponentProp
   const navigate = useNavigate();
   const [sortBy, setSortBy] = useState<string>('name');
   const [orderAsc, setOrderAsc] = useState<boolean>(true);
+  const isGrantedManage = useGranted([MODULES_MODMANAGE]);
 
   const data = usePreloadedFragment<
   ConnectorsStatusQuery,
@@ -293,13 +295,13 @@ const ConnectorsStatusComponent: FunctionComponent<ConnectorsStatusComponentProp
             <ListItemSecondaryAction> &nbsp; </ListItemSecondaryAction>
           </ListItem>
           {sortedConnectors && sortedConnectors.map((connector) => (
-            <ListItem
+            <ListItemButton
               key={connector.id}
               classes={{ root: classes.item }}
               divider={true}
-              button={true}
               component={Link}
               to={`/dashboard/data/ingestion/connectors/${connector.id}`}
+              // disabled={!isGrantedManage}
             >
               <ListItemIcon
                 style={{ color: connector.active ? '#4caf50' : '#f44336' }}
@@ -384,7 +386,7 @@ const ConnectorsStatusComponent: FunctionComponent<ConnectorsStatusComponentProp
                   </>
                 </Security>
               </ListItemSecondaryAction>
-            </ListItem>
+            </ListItemButton>
           ))}
         </List>
       </CardContent>
