@@ -272,22 +272,12 @@ StixDomainObjectThreatKnowledgeProps
       >
         Create bulk relation
       </Button>
-
-      <Dialog
-        open={displayBulkModal}
-        PaperProps={{ elevation: 1 }}
-      >
-        <BulkRelationDialog
-          stixDomainObjectId={stixDomainObjectId}
-          stixDomainObjectType={stixDomainObjectType}
-        />
-        <DialogActions>
-          <Button onClick={handleCloseBulkModal}>
-            {t_i18n('Cancel')}
-          </Button>
-        </DialogActions>
-      </Dialog>
-
+      <BulkRelationDialog
+        stixDomainObjectId={stixDomainObjectId}
+        stixDomainObjectType={stixDomainObjectType}
+        close={handleCloseBulkModal}
+        isOpen={displayBulkModal}
+      />
       <Grid container={true} spacing={3}>
         <Grid item={true} xs={4} style={{ paddingTop: 10 }}>
           <Card
