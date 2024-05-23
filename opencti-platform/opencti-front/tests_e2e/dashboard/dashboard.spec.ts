@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { expect, test } from '../fixtures/baseFixtures';
 import DashboardPage from '../model/dashboard.pageModel';
 import DashboardDetailsPage from '../model/dashboardDetails.pageModel';
@@ -21,28 +22,52 @@ test('Dashboard CRUD', async ({ page }) => {
 
   await page.goto('/dashboard/workspaces/dashboards');
 
-  // region Create a new dashboard
+  // region Check open/close form.
   // -----------------------------
+  await dashboardPage.openButtonModal().hover();
+  await dashboardPage.addNewDashboard().click();
+  await expect(dashboardForm.getCreateTitle()).toBeVisible();
+  await dashboardForm.getCancelButton().click();
+  await expect(dashboardForm.getCreateTitle()).not.toBeVisible();
+  await dashboardPage.openButtonModal().hover();
+  await dashboardPage.addNewDashboard().click();
+  await expect(dashboardForm.getCreateTitle()).toBeVisible();
 
-  // TODO assert available options to create dashboard (4)
-  // TODO open create form (5/6/7)
-  // TODO check that inputs validation is ok (8/9)
-  // TODO create dashboard (10)
-  // TODO create a second one
+  // region fields validation in the form.
+  // -----------------------------
+  const dashboardName = `Dashboard - ${uuid()}`;
+  await dashboardForm.nameField.fill('');
+  await dashboardForm.getCreateButton().click();
+  await expect(page.getByText('This field is required')).toBeVisible();
+  await dashboardForm.nameField.fill('a');
+  await expect(page.getByText('Name must be at least 2 characters')).toBeVisible();
+  await dashboardForm.nameField.fill(dashboardName);
+  await expect(page.getByText('Name must be at least 2 characters')).toBeHidden();
 
+  await dashboardForm.descriptionField.fill('Test e2e Description');
+  await expect(dashboardForm.descriptionField.get()).toHaveValue('Test e2e Description');
+
+  // region Create a new dashboard.
+  // -----------------------------
+  await dashboardForm.getCreateButton().click();
+
+  // region Check data of listed dashboards.
   // ---------
+  await dashboardPage.getItemFromList(dashboardName).click();
   // endregion
 
-  // region Check that listed dashboards have correct data
-  // -----------------------------------------------------
-
-  // TODO assert listed dashboards columns data (2/3)
-
+  // region Check details of a dashboard.
   // ---------
+  await expect(dashboardDetailsPage.getDashboardDetailsPage()).toBeVisible();
   // endregion
 
   // region Check content of a dashboard
   // -----------------------------------
+
+  // TODO create a second one
+
+  // region Check that listed dashboards have correct data
+  // -----------------------------------------------------
 
   // TODO go to dashboard and assert name (12)
 
