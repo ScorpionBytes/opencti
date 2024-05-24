@@ -120,8 +120,8 @@ const WorkspacePopover = ({ workspace, paginationOptions }) => {
       >
         <MoreVert />
       </IconButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleOpenEdit}>{t_i18n('Update')}</MenuItem>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} aria-label="Menu">
+        <MenuItem onClick={handleOpenEdit} aria-label="Edit">{t_i18n('Update')}</MenuItem>
         {workspace.type === 'dashboard' && [
           <MenuItem key="menu_duplicate" onClick={handleDashboardDuplication}>{t_i18n('Duplicate')}</MenuItem>,
           <MenuItem key="menu_export" onClick={() => handleExportJson(workspace)}>{t_i18n('Export')}</MenuItem>,
@@ -147,7 +147,7 @@ const WorkspacePopover = ({ workspace, paginationOptions }) => {
         onClose={handleCloseDelete}
       >
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText aria-label='Delete'>
             {t_i18n('Do you want to delete this workspace?')}
           </DialogContentText>
         </DialogContent>

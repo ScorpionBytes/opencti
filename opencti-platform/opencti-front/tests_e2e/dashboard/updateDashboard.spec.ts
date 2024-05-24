@@ -10,12 +10,12 @@ test('Create a new dashboard page and test update', async ({ page }) => {
   await page.goto('/dashboard/workspaces/dashboards');
   await dashboardPage.openButtonModal().hover();
   await dashboardPage.addNewDashboard().click();
-  await dashboardForm.fillNameInput('Test Update e2e');
+  await dashboardForm.nameField.fill('Test Update e2e');
   await dashboardPage.getCreateDashboardButton().click();
   await dashboardPage.getItemFromList('Test Update e2e').click();
   await dashboardDetailsPage.openPopUpButton().click();
   await dashboardDetailsPage.getEditButton().click();
-  await dashboardForm.fillNameInput('Modification Test Update e2e');
+  await dashboardForm.nameField.fill('Modification Test Update e2e');
   await dashboardForm.getCloseButton().click();
   await expect(dashboardDetailsPage.getTitle('Modification Test Update e2e')).toBeVisible();
 });

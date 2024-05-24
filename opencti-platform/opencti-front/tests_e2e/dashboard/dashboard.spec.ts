@@ -43,7 +43,6 @@ test('Dashboard CRUD', async ({ page }) => {
   await expect(page.getByText('Name must be at least 2 characters')).toBeVisible();
   await dashboardForm.nameField.fill(dashboardName);
   await expect(page.getByText('Name must be at least 2 characters')).toBeHidden();
-
   await dashboardForm.descriptionField.fill('Test e2e Description');
   await expect(dashboardForm.descriptionField.get()).toHaveValue('Test e2e Description');
 
@@ -53,42 +52,59 @@ test('Dashboard CRUD', async ({ page }) => {
 
   // region Check data of listed dashboards.
   // ---------
-  await dashboardPage.getItemFromList(dashboardName).click();
+  await expect(dashboardPage.getItemFromList(dashboardName)).toBeVisible();
   // endregion
 
   // region Check details of a dashboard.
   // ---------
+  await dashboardPage.getItemFromList(dashboardName).click();
   await expect(dashboardDetailsPage.getDashboardDetailsPage()).toBeVisible();
   // endregion
 
-  // region Check content of a dashboard
+  // region Update dashboard name.
   // -----------------------------------
-
-  // TODO create a second one
+  const updateDashboardName = `UpdateDashboard - ${uuid()}`;
+  await dashboardDetailsPage.openPopUpButton().click();
+  await dashboardDetailsPage.getEditButton().click();
+  await expect(dashboardForm.getUpdateTitle()).toBeVisible();
+  await dashboardForm.nameField.fill(updateDashboardName);
+  await dashboardForm.getCloseButton().click();
+  await expect(dashboardDetailsPage.getTextForHeading(updateDashboardName)).toBeVisible();
+  // const heading = await dashboardDetailsPage.getTextForHeading(updateDashboardName);
+  // console.log(await heading.textContent());
+  // await expect(heading).toBeVisible();
+  // ---------
+  // endregion
 
   // region Check that listed dashboards have correct data
   // -----------------------------------------------------
-
-  // TODO go to dashboard and assert name (12)
-
+  await page.goto('/dashboard/workspaces/dashboards');
+  await dashboardPage.getItemFromList(updateDashboardName).click();
+  await expect(dashboardDetailsPage.getDashboardDetailsPage()).toBeVisible();
   // ---------
   // endregion
 
   // region Update dashboard content
   // -------------------------------
-
-  // TODO go to dashboard and open update form to change the name (19/20/21)
-
+  const updateDashboardDescription = 'Test e2e Description';
+  await dashboardDetailsPage.openPopUpButton().click();
+  await dashboardDetailsPage.getEditButton().click();
+  await expect(dashboardForm.getUpdateTitle()).toBeVisible();
+  await dashboardForm.descriptionField.fill(updateDashboardDescription);
+  await expect(dashboardForm.descriptionField.get()).toHaveValue('Test e2e Description');
+  await dashboardForm.getCloseButton().click();
+  await expect(dashboardDetailsPage.getTextForHeading(updateDashboardName)).toBeVisible();
   // ---------
   // endregion
 
   // region Delete a dashboard
   // -------------------------
-
-  // TODO go to dashboard and delete but cancel (22/23)
-  // TODO go to dashboard and delete with confirm (24)
-
-  // TODO from list page delete the other one
+  await dashboardDetailsPage.openPopUpButton().click();
+  await dashboardDetailsPage.getDeleteButton().click();
+  await expect(dashboardDetailsPage.getDeletePopup()).toBeVisible();
+  await dashboardDetailsPage.getDeletePopup().click();
+  await expect(dashboardPage.getPageTitle()).toBeVisible();
+  await expect(dashboardDetailsPage.getTextForHeading(updateDashboardName)).not.toBeVisible();
 
   // ---------
   // endregion

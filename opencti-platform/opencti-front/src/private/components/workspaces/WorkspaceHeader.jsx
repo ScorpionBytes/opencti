@@ -16,7 +16,7 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Slide from '@mui/material/Slide';
-import { AddOutlined, CloseOutlined, MoveToInboxOutlined, LockPersonOutlined, Delete } from '@mui/icons-material';
+import { AddOutlined, CloseOutlined, Delete, LockPersonOutlined, MoveToInboxOutlined } from '@mui/icons-material';
 import { DotsHorizontalCircleOutline } from 'mdi-material-ui';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -206,6 +206,7 @@ const WorkspaceHeader = ({
           gutterBottom={true}
           classes={{ root: classes.title }}
           style={{ marginRight: userCanEdit ? 0 : 10 }}
+          aria-label='workspace'
         >
           {workspace.name}
         </Typography>

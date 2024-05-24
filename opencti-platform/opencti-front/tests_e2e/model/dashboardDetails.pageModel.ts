@@ -17,22 +17,25 @@ export default class DashboardDetailsPage {
   }
 
   getEditButton() {
-    return this.page.getByRole('menuitem', { name: 'Update' });
+    return this.page.getByLabel('Edit');
   }
 
   getDeleteButton() {
     return this.page.getByRole('menuitem', { name: 'Delete' });
   }
 
-  getDelete() {
+  getDeletePopup() {
     return this.page.getByRole('button', { name: 'Delete' });
   }
-
   addNewDashboardTag() {
     return this.page.getByLabel('Add tag');
   }
 
   getTag(name: string) {
     return this.page.getByRole('button', { name });
+  }
+
+  getTextForHeading(text: string) {
+    return this.page.getByText(text);
   }
 }

@@ -27,4 +27,8 @@ export default class DashboardPage {
   getItemFromList(name: string) {
     return this.page.getByRole('link', { name }).first();
   }
+
+  getPageTitle() {
+    return this.page.getByLabel('Workspace');
+  }
 }
