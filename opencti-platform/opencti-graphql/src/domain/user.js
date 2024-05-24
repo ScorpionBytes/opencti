@@ -315,7 +315,7 @@ const getUserAndGlobalMarkings = async (context, userId, userGroups, capabilitie
   );
   const maxShareableMarkings = await Promise.all(maxShareableMarkingsPromiseArray);
   const computedMarkings = computeAvailableMarkings(userMarkings, markings);
-  return { user: computedMarkings, all: markings, default: defaultMarkings, max_shareable: uniq(maxShareableMarkings) };
+  return { user: computedMarkings, all: markings, default: defaultMarkings, max_shareable: uniq(maxShareableMarkings.flat()) };
 };
 
 export const getRoles = async (context, userGroups) => {

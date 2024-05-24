@@ -1,5 +1,4 @@
 import * as R from 'ramda';
-import { uniq } from 'ramda';
 import { createRelation, deleteElementById, deleteRelationsByFromAndTo, patchAttribute, updateAttribute } from '../database/middleware';
 import {
   internalFindByIds,
@@ -118,13 +117,13 @@ export const defaultMarkingDefinitionsFromGroups = async (context, groupIds) => 
     });
 };
 
-// return an array of promises composed of the max shareable markings of the groups
+// return: array of the max shareable markings arrays of the different groups
 export const maxShareableMarkingDefinitionsFromGroups = async (context, groupIds) => {
   // Retrieve max shareable markings by groups
   return internalFindByIds(context, SYSTEM_USER, groupIds, { type: ENTITY_TYPE_GROUP })
     .then((groups) => groups.map((group) => {
       return groupMaxShareableMarkings(context, SYSTEM_USER, group);
-    }).flat());
+    }));
 };
 
 export const rolesPaginated = async (context, user, groupId, args) => {
