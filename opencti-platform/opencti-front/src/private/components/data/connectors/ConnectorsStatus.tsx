@@ -21,7 +21,7 @@ import { FIVE_SECONDS } from '../../../../utils/Time';
 import { useFormatter } from '../../../../components/i18n';
 import { commitMutation, MESSAGING$ } from '../../../../relay/environment';
 import Security from '../../../../utils/Security';
-import useGranted, { MODULES_MODMANAGE } from '../../../../utils/hooks/useGranted';
+import { MODULES_MODMANAGE } from '../../../../utils/hooks/useGranted';
 import { connectorDeletionMutation, connectorResetStateMutation } from './Connector';
 import ItemBoolean from '../../../../components/ItemBoolean';
 import type { Theme } from '../../../../components/Theme';
@@ -154,7 +154,6 @@ const ConnectorsStatusComponent: FunctionComponent<ConnectorsStatusComponentProp
   const navigate = useNavigate();
   const [sortBy, setSortBy] = useState<string>('name');
   const [orderAsc, setOrderAsc] = useState<boolean>(true);
-  const isGrantedManage = useGranted([MODULES_MODMANAGE]);
 
   const data = usePreloadedFragment<
   ConnectorsStatusQuery,
@@ -301,7 +300,6 @@ const ConnectorsStatusComponent: FunctionComponent<ConnectorsStatusComponentProp
               divider={true}
               component={Link}
               to={`/dashboard/data/ingestion/connectors/${connector.id}`}
-              disabled={!isGrantedManage}
             >
               <ListItemIcon
                 style={{ color: connector.active ? '#4caf50' : '#f44336' }}
