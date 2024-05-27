@@ -18,7 +18,7 @@ import DashboardFormPage from '../model/form/dashboardForm.pageModel';
 test('Dashboard CRUD', async ({ page }) => {
   const dashboardPage = new DashboardPage(page);
   const dashboardDetailsPage = new DashboardDetailsPage(page);
-  const dashboardForm = new DashboardFormPage(page); // TODO refacto DashboardFormPage to use Field page models like ReportFormPageModel
+  const dashboardForm = new DashboardFormPage(page);
 
   await page.goto('/dashboard/workspaces/dashboards');
 
