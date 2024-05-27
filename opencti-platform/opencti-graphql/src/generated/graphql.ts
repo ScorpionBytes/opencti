@@ -22289,6 +22289,7 @@ export type StixCoreObjectEdge = {
 
 export type StixCoreObjectEditMutations = {
   __typename?: 'StixCoreObjectEditMutations';
+  askAnalysis?: Maybe<Work>;
   askEnrichment?: Maybe<Work>;
   delete?: Maybe<Scalars['ID']['output']>;
   exportAsk?: Maybe<Array<File>>;
@@ -22299,6 +22300,13 @@ export type StixCoreObjectEditMutations = {
   relationsAdd?: Maybe<StixCoreObject>;
   restrictionOrganizationAdd?: Maybe<StixCoreObject>;
   restrictionOrganizationDelete?: Maybe<StixCoreObject>;
+};
+
+
+export type StixCoreObjectEditMutationsAskAnalysisArgs = {
+  connectorId?: InputMaybe<Scalars['ID']['input']>;
+  contentSource: Scalars['String']['input'];
+  contentType: Scalars['String']['input'];
 };
 
 
@@ -36742,6 +36750,7 @@ export type StixCoreObjectEdgeResolvers<ContextType = any, ParentType extends Re
 }>;
 
 export type StixCoreObjectEditMutationsResolvers<ContextType = any, ParentType extends ResolversParentTypes['StixCoreObjectEditMutations'] = ResolversParentTypes['StixCoreObjectEditMutations']> = ResolversObject<{
+  askAnalysis?: Resolver<Maybe<ResolversTypes['Work']>, ParentType, ContextType, RequireFields<StixCoreObjectEditMutationsAskAnalysisArgs, 'contentSource' | 'contentType'>>;
   askEnrichment?: Resolver<Maybe<ResolversTypes['Work']>, ParentType, ContextType, RequireFields<StixCoreObjectEditMutationsAskEnrichmentArgs, 'connectorId'>>;
   delete?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   exportAsk?: Resolver<Maybe<Array<ResolversTypes['File']>>, ParentType, ContextType, RequireFields<StixCoreObjectEditMutationsExportAskArgs, 'input'>>;

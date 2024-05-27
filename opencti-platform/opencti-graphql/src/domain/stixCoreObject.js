@@ -235,6 +235,43 @@ export const askElementEnrichmentForConnector = async (context, user, enrichedId
   return work;
 };
 
+export const askElementAnalysisForConnector = async (context, user, analysedId, contentSource, contentType, connectorId) => {
+  //TODO: change hardcoded connector to get INTERNAL_ANALYSIS type connectors
+  const connector = await storeLoadById(context, user, 'ImportDocument', ENTITY_TYPE_CONNECTOR);
+  const element = await internalLoadById(context, user, analysedId);
+
+  const work = await createWork(context, user, connector, 'Content analysis', element.standard_id);
+  const message = {
+    internal: {
+      work_id: work.id, // Related action for history
+      applicant_id: null, // No specific user asking for the import
+    },
+    event: {
+      event_type: 'Analysis',
+      entity_id: element.standard_id,
+      entity_type: element.entity_type,
+      contentRaw: contentSource, //TODO: change contentRaw to contentSource & contentType, let connector fetch data
+    },
+  };
+  await pushToConnector(connector.internal_id, message);
+  const baseData = {
+    id: analysedId,
+    connector_id: connectorId,
+    connector_name: connector.name,
+    entity_name: extractEntityRepresentativeName(element),
+    entity_type: element.entity_type
+  };
+  const contextData = completeContextDataForEntity(baseData, element);
+  await publishUserAction({
+    user,
+    event_access: 'extended',
+    event_type: 'command',
+    event_scope: 'analyse',
+    context_data: contextData,
+  });
+  return work;
+};
+
 // region stats
 export const stixCoreObjectsTimeSeries = (context, user, args) => {
   let types = [];
