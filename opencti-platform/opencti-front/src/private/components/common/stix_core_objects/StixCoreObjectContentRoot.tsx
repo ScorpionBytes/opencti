@@ -6,28 +6,18 @@ import ContainerContent from '@components/common/containers/ContainerContent';
 
 interface StixCoreObjectContentRootProps {
   stixCoreObject: any;
-  link: string;
 }
 
 const StixCoreObjectContentRoot: FunctionComponent<StixCoreObjectContentRootProps> = ({
   stixCoreObject,
-  link,
 }) => {
   return (
-    <div>
+    <>
       <StixCoreObjectContentHeader
         currentMode={'content'}
         modes={['content', 'mapping']}
-        link={link}
       />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <StixDomainObjectContent
-              stixDomainObject={stixCoreObject}
-            />}
-        />
         <Route
           path="/mapping"
           element={
@@ -37,8 +27,14 @@ const StixCoreObjectContentRoot: FunctionComponent<StixCoreObjectContentRootProp
           }
         />
       </Routes>
-
-    </div>
+      <Route
+        path="/"
+        element={
+          <StixDomainObjectContent
+            stixDomainObject={stixCoreObject}
+          />}
+      />
+    </>
   );
 };
 

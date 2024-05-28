@@ -10,23 +10,23 @@ import { useFormatter } from '../../../../components/i18n';
 interface StixCoreObjectContentHeaderProps {
   currentMode?: string;
   modes: string[];
-  link: string;
+
 }
 
 const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeaderProps> = ({
   currentMode,
   modes,
-  link,
+
 }) => {
   const { t_i18n } = useFormatter();
 
   return (
-    <Box >
+    <div>
       {modes.includes('content') && (
         <Tooltip title={t_i18n('Content view')}>
           <ToggleButton
             component={Link}
-            to={link}
+            to=''
             selected={currentMode === 'content'}
             value={'content'}
           >
@@ -41,7 +41,7 @@ const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeader
         <Tooltip title={t_i18n('Content mapping view')}>
           <ToggleButton
             component={Link}
-            to={`${link}/mapping`}
+            to='mapping'
             selected={currentMode === 'mapping'}
             value={'mapping'}
           >
@@ -52,7 +52,7 @@ const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeader
           </ToggleButton>
         </Tooltip>
       )}
-    </Box>
+    </div>
   );
 };
 
