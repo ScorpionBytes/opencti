@@ -6,12 +6,12 @@ import * as R from 'ramda';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import Vulnerability from './Vulnerability';
 import VulnerabilityKnowledge from './VulnerabilityKnowledge';
 import StixDomainObjectHeader from '../../common/stix_domain_objects/StixDomainObjectHeader';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import FileManager from '../../common/files/FileManager';
 import VulnerabilityPopover from './VulnerabilityPopover';
 import Loader from '../../../../components/Loader';
@@ -220,12 +220,12 @@ class RootVulnerability extends Component {
                         )}
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
                             stixCoreObject={vulnerability}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses"

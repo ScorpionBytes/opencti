@@ -6,7 +6,7 @@ import * as R from 'ramda';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import StixCoreRelationship from '../../common/stix_core_relationships/StixCoreRelationship';
 import Indicator from './Indicator';
@@ -175,12 +175,12 @@ class RootIndicator extends Component {
                         element={(<Indicator indicator={indicator} />)}
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
                             stixCoreObject={indicator}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses"

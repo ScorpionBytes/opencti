@@ -6,7 +6,7 @@ import * as R from 'ramda';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import StixCoreRelationship from '../../common/stix_core_relationships/StixCoreRelationship';
@@ -185,12 +185,12 @@ class RootStixCyberObservable extends Component {
                         }
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
-                            stixCoreObject={props.stixCyberObservable}
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
+                            stixCoreObject={stixCyberObservable}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses"

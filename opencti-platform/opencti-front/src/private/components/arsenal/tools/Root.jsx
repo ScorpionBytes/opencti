@@ -6,12 +6,12 @@ import * as R from 'ramda';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import Tool from './Tool';
 import ToolKnowledge from './ToolKnowledge';
 import StixDomainObjectHeader from '../../common/stix_domain_objects/StixDomainObjectHeader';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import FileManager from '../../common/files/FileManager';
 import ToolPopover from './ToolPopover';
 import Loader from '../../../../components/Loader';
@@ -215,12 +215,12 @@ class RootTool extends Component {
                         )}
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
                             stixCoreObject={tool}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses/*"

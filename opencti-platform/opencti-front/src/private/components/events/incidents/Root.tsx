@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import StixCoreObjectSimulationResult from '@components/common/stix_core_objects/StixCoreObjectSimulationResult';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import Incident from './Incident';
 import IncidentKnowledge from './IncidentKnowledge';
 import StixDomainObjectHeader from '../../common/stix_domain_objects/StixDomainObjectHeader';
@@ -19,9 +20,7 @@ import StixCoreObjectHistory from '../../common/stix_core_objects/StixCoreObject
 import StixCoreObjectOrStixCoreRelationshipContainers from '../../common/containers/StixCoreObjectOrStixCoreRelationshipContainers';
 import ErrorNotFound from '../../../../components/ErrorNotFound';
 import StixCoreObjectKnowledgeBar from '../../common/stix_core_objects/StixCoreObjectKnowledgeBar';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import useQueryLoading from '../../../../utils/hooks/useQueryLoading';
-
 import { RootIncidentQuery } from './__generated__/RootIncidentQuery.graphql';
 import { RootIncidentSubscription } from './__generated__/RootIncidentSubscription.graphql';
 import { useFormatter } from '../../../../components/i18n';
@@ -178,12 +177,12 @@ const RootIncidentComponent = ({ queryRef }) => {
               element={<IncidentKnowledge incidentData={incident} />}
             />
             <Route
-              path="/content"
-              element={(
-                <StixCoreObjectContent
+              path="/content/*"
+              element={
+                <StixCoreObjectContentRoot
                   stixCoreObject={incident}
                 />
-              )}
+              }
             />
             <Route
               path="/analyses"

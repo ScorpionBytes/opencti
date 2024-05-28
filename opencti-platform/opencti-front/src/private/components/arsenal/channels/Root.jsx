@@ -6,11 +6,11 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import * as R from 'ramda';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import Channel from './Channel';
 import ChannelKnowledge from './ChannelKnowledge';
 import StixDomainObjectHeader from '../../common/stix_domain_objects/StixDomainObjectHeader';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import FileManager from '../../common/files/FileManager';
 import ChannelPopover from './ChannelPopover';
 import Loader from '../../../../components/Loader';
@@ -216,12 +216,12 @@ class RootChannel extends Component {
                         )}
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
-                            stixCoreObject={props.channel}
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
+                            stixCoreObject={channel}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses/*"

@@ -9,11 +9,11 @@ import { GraphQLSubscriptionConfig } from 'relay-runtime';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import ErrorNotFound from '../../../../components/ErrorNotFound';
 import useQueryLoading from '../../../../utils/hooks/useQueryLoading';
 import Loader, { LoaderVariant } from '../../../../components/Loader';
 import ContainerHeader from '../../common/containers/ContainerHeader';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import StixCoreObjectFilesAndHistory from '../../common/stix_core_objects/StixCoreObjectFilesAndHistory';
 import StixCoreObjectHistory from '../../common/stix_core_objects/StixCoreObjectHistory';
 import CaseRft from './CaseRft';
@@ -200,12 +200,13 @@ const RootCaseRftComponent = ({ queryRef, caseId }) => {
               )}
             />
             <Route
-              path="/content"
-              element={(
-                <StixCoreObjectContent
-                  stixCoreObject={caseData}
+              path="/content/*"
+              element={
+                <StixCoreObjectContentRoot
+                  stixCoreObject={report}
+                  isContainer={true}
                 />
-              )}
+              }
             />
             <Route
               path="/knowledge"

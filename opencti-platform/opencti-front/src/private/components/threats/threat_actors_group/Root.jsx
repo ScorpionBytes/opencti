@@ -6,8 +6,8 @@ import { graphql } from 'react-relay';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectSimulationResult from '../../common/stix_core_objects/StixCoreObjectSimulationResult';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import ThreatActorGroup from './ThreatActorGroup';
@@ -225,12 +225,12 @@ class RootThreatActorGroup extends Component {
                         }
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
-                            stixCoreObject={props.threatActorGroup}
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
+                            stixCoreObject={threatActorGroup}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses"

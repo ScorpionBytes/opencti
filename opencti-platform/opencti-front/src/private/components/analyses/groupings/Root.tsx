@@ -11,7 +11,7 @@ import Tab from '@mui/material/Tab';
 import { GraphQLSubscriptionConfig } from 'relay-runtime';
 import { RootReportSubscription } from '@components/analyses/reports/__generated__/RootReportSubscription.graphql';
 import StixCoreObjectSimulationResult from '@components/common/stix_core_objects/StixCoreObjectSimulationResult';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import { QueryRenderer } from '../../../../relay/environment';
 import Grouping from './Grouping';
 import GroupingPopover from './GroupingPopover';
@@ -213,10 +213,11 @@ const RootGrouping = () => {
                       }
                     />
                     <Route
-                      path="/content"
+                      path="/content/*"
                       element={
-                        <StixCoreObjectContent
+                        <StixCoreObjectContentRoot
                           stixCoreObject={grouping}
+                          isContainer={true}
                         />
                       }
                     />

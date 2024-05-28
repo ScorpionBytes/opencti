@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import StixCoreObjectSimulationResult from '@components/common/stix_core_objects/StixCoreObjectSimulationResult';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import ErrorNotFound from '../../../../components/ErrorNotFound';
 import Loader, { LoaderVariant } from '../../../../components/Loader';
 import useQueryLoading from '../../../../utils/hooks/useQueryLoading';
@@ -17,7 +18,6 @@ import ContainerHeader from '../../common/containers/ContainerHeader';
 import ContainerStixCyberObservables from '../../common/containers/ContainerStixCyberObservables';
 import ContainerStixDomainObjects from '../../common/containers/ContainerStixDomainObjects';
 import StixCoreObjectFilesAndHistory from '../../common/stix_core_objects/StixCoreObjectFilesAndHistory';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import { RootIncidentCaseQuery } from './__generated__/RootIncidentCaseQuery.graphql';
 import CaseIncident from './CaseIncident';
 import CaseIncidentPopover from './CaseIncidentPopover';
@@ -213,11 +213,13 @@ const RootCaseIncidentComponent = ({ queryRef, caseId }) => {
                 />}
             />
             <Route
-              path="/content"
+              path="/content/*"
               element={
-                <StixCoreObjectContent
+                <StixCoreObjectContentRoot
                   stixCoreObject={caseData}
-                />}
+                  isContainer={true}
+                />
+              }
             />
             <Route
               path="/knowledge/*"

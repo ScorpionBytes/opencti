@@ -9,8 +9,8 @@ import { GraphQLSubscriptionConfig } from 'relay-runtime';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectSimulationResult from '../../common/stix_core_objects/StixCoreObjectSimulationResult';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import ErrorNotFound from '../../../../components/ErrorNotFound';
 import useQueryLoading from '../../../../utils/hooks/useQueryLoading';
 import Loader, { LoaderVariant } from '../../../../components/Loader';
@@ -223,12 +223,12 @@ const RootThreatActorIndividualComponent = ({
                 }
               />
               <Route
-                path="/content"
-                element={(
-                  <StixCoreObjectContent
+                path="/content/*"
+                element={
+                  <StixCoreObjectContentRoot
                     stixCoreObject={data}
                   />
-                )}
+                }
               />
               <Route
                 path="/analyses"

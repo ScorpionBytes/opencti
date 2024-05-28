@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import * as R from 'ramda';
+import StixCoreObjectContentRoot from '../../common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectSimulationResult from '../../common/stix_core_objects/StixCoreObjectSimulationResult';
-import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
 import Campaign from './Campaign';
@@ -221,12 +221,12 @@ class RootCampaign extends Component {
                         }
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
-                            stixCoreObject={props.campaign}
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
+                            stixCoreObject={campaign}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses"
