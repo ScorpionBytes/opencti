@@ -134,18 +134,17 @@ export const connectorDelete = async (context, user, connectorId) => {
 };
 
 export const connectorTriggerUpdate = async (context, user, connectorId, input) => {
-  const element = await storeLoadById(context, user, connectorId, ENTITY_TYPE_CONNECTOR);
-  if (!element) {
+  const conn = await storeLoadById(context, user, connectorId, ENTITY_TYPE_CONNECTOR);
+  if (!conn) {
     throw FunctionalError('Cant find element to update', { id: connectorId, type: ENTITY_TYPE_CONNECTOR });
   }
-  if (!['INTERNAL_ENRICHMENT', 'INTERNAL_IMPORT_FILE'].includes(element.connector_type)) {
+  if (!['INTERNAL_ENRICHMENT', 'INTERNAL_IMPORT_FILE'].includes(conn.connector_type)) {
     throw FunctionalError('Update is only possible on internal enrichment or import file connectors types');
   }
   const supportedInputKeys = ['connector_trigger_filters', 'auto'];
   if (input.some((item) => !supportedInputKeys.includes(item.key))) {
-    throw FunctionalError(`Update is only possible on these input keys: ${supportedInputKeys.join('')}`);
+    throw FunctionalError(`Update is only possible on these input keys: ${supportedInputKeys.join(', ')}`);
   }
-  // Check that element exist
   const filtersItem = input.find((item) => item.key === 'connector_trigger_filters');
   if (filtersItem?.value) {
     const jsonFilters = JSON.parse(filtersItem.value);
@@ -156,6 +155,7 @@ export const connectorTriggerUpdate = async (context, user, connectorId, input) 
       filtersItem.value = ''; // empty filter
     }
   }
+  const { element } = await updateAttribute(context, user, connectorId, ENTITY_TYPE_CONNECTOR, input);
   await publishUserAction({
     user,
     event_type: 'mutation',
