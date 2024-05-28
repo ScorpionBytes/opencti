@@ -6,6 +6,7 @@ import { ENTITY_TYPE_CONNECTOR } from '../schema/internalObject';
 import { getEntitiesListFromCache } from '../database/cache';
 import { CONNECTOR_INTERNAL_ENRICHMENT } from '../schema/general';
 import { isStixMatchFilterGroup } from '../utils/filtering/filtering-stix/stix-filtering';
+import { isFilterGroupNotEmpty } from '../utils/filtering/filtering-utils';
 import { SYSTEM_USER } from '../utils/access';
 
 export const createEntityAutoEnrichment = async (context, user, element, scope) => {
@@ -60,5 +61,8 @@ const isStixMatchConnectorFilter = async (context, element, stringFilters) => {
     return false; // no filters, doesn't match
   }
   const jsonFilters = JSON.parse(stringFilters);
+  if (!isFilterGroupNotEmpty(jsonFilters)) {
+    return false; // filters empty -> we don't try to match
+  }
   return isStixMatchFilterGroup(context, SYSTEM_USER, element, jsonFilters);
 };

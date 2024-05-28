@@ -8120,6 +8120,7 @@ type Mutation {
   registerConnector(input: RegisterConnectorInput): Connector
   resetStateConnector(id: ID!): Connector
   deleteConnector(id: ID!): ID!
+  updateConnectorTrigger(id: ID!, input: [EditInput]!): ID!
   runtimeAttributeEdit(id: String!, previous: String!, current: String!): ID!
   feedAdd(input: FeedAddInput!): Feed
   feedDelete(id: ID!): ID!
