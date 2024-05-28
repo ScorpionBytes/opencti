@@ -3,20 +3,17 @@ import Tooltip from '@mui/material/Tooltip';
 import ToggleButton from '@mui/material/ToggleButton';
 import { Link } from 'react-router-dom';
 import { DifferenceOutlined } from '@mui/icons-material';
-import Box from '@mui/material/Box';
 import { VectorPolygon } from 'mdi-material-ui';
 import { useFormatter } from '../../../../components/i18n';
 
 interface StixCoreObjectContentHeaderProps {
   currentMode?: string;
   modes: string[];
-
 }
 
 const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeaderProps> = ({
   currentMode,
   modes,
-
 }) => {
   const { t_i18n } = useFormatter();
 

@@ -229,7 +229,6 @@ const RootReport = () => {
                       element={
                         <StixCoreObjectContentRoot
                           stixCoreObject={report}
-                          link={`/dashboard/analyses/reports/${reportId}/content`}
                         />
                       }
                     />
