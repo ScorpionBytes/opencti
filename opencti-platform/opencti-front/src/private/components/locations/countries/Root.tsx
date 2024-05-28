@@ -8,6 +8,7 @@ import { GraphQLSubscriptionConfig } from 'relay-runtime';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import Country from './Country';
 import CountryKnowledge from './CountryKnowledge';
@@ -182,12 +183,12 @@ const RootCountryComponent = ({ queryRef, countryId, link }) => {
               element={<CountryKnowledge countryData={country} />}
             />
             <Route
-              path="/content"
-              element={(
-                <StixCoreObjectContent
+              path="/content/*"
+              element={
+                <StixCoreObjectContentRoot
                   stixCoreObject={country}
                 />
-              )}
+              }
             />
             <Route
               path="/analyses"

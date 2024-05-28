@@ -7,11 +7,11 @@ import StixCoreObjectContent from '@components/common/stix_core_objects/StixCore
 
 interface StixCoreObjectContentRootProps {
   stixCoreObject: any;
-  isContainer: boolean;
+  isContainer?: boolean;
 }
 
 const StixCoreObjectContentRoot: FunctionComponent<StixCoreObjectContentRootProps> = ({
-  stixCoreObject, isContainer,
+  stixCoreObject, isContainer = false,
 }) => {
   const { pathname } = useLocation();
   const currentMode = pathname.endsWith('/mapping') ? 'mapping' : 'content';

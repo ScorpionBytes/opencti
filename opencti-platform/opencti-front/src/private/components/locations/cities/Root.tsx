@@ -8,6 +8,7 @@ import { GraphQLSubscriptionConfig } from 'relay-runtime';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import City from './City';
 import CityKnowledge from './CityKnowledge';
@@ -180,12 +181,12 @@ const RootCityComponent = ({ queryRef, cityId, link }) => {
               element={<CityKnowledge cityData={city} />}
             />
             <Route
-              path="/content"
-              element={(
-                <StixCoreObjectContent
+              path="/content/*"
+              element={
+                <StixCoreObjectContentRoot
                   stixCoreObject={city}
                 />
-              )}
+              }
             />
             <Route
               path="/analyses"

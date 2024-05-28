@@ -9,6 +9,7 @@ import { GraphQLSubscriptionConfig } from 'relay-runtime';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import StixDomainObjectHeader from '../../common/stix_domain_objects/StixDomainObjectHeader';
 import FileManager from '../../common/files/FileManager';
@@ -160,12 +161,12 @@ const RootDataSourceComponent = ({ queryRef, dataSourceId }) => {
               }
             />
             <Route
-              path="/content"
-              element={(
-                <StixCoreObjectContent
+              path="/content/*"
+              element={
+                <StixCoreObjectContentRoot
                   stixCoreObject={dataSource}
                 />
-              )}
+              }
             />
             <Route
               path="/files"

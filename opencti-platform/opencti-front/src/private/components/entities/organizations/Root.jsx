@@ -7,6 +7,7 @@ import * as R from 'ramda';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import StixCoreObjectContentRoot from '@components/common/stix_core_objects/StixCoreObjectContentRoot';
 import StixCoreObjectContent from '../../common/stix_core_objects/StixCoreObjectContent';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import { QueryRenderer, requestSubscription } from '../../../../relay/environment';
@@ -267,12 +268,12 @@ class RootOrganization extends Component {
                         }
                       />
                       <Route
-                        path="/content"
-                        element={(
-                          <StixCoreObjectContent
+                        path="/content/*"
+                        element={
+                          <StixCoreObjectContentRoot
                             stixCoreObject={organization}
                           />
-                        )}
+                        }
                       />
                       <Route
                         path="/analyses"
