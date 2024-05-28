@@ -1686,6 +1686,7 @@ type Connector implements BasicObject & InternalObject {
   auto: Boolean
   only_contextual: Boolean
   playbook_compatible: Boolean
+  connector_trigger_filters: String
   connector_type: String
   connector_scope: [String!]
   connector_state: String

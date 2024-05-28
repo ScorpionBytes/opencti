@@ -20,6 +20,7 @@ import DialogActions from '@mui/material/DialogActions';
 import withRouter from '../../../../utils/compat-router/withRouter';
 import ItemBoolean from '../../../../components/ItemBoolean';
 import inject18n from '../../../../components/i18n';
+import { getConnectorOnlyContextualStatus, getConnectorTriggerStatus } from '../../../../utils/Connector';
 import { FIVE_SECONDS } from '../../../../utils/Time';
 import Security from '../../../../utils/Security';
 import { MODULES_MODMANAGE } from '../../../../utils/hooks/useGranted';
@@ -194,6 +195,8 @@ class ConnectorComponent extends Component {
 
   render() {
     const { classes, connector, t, nsdt } = this.props;
+    const connectorTriggerStatus = getConnectorTriggerStatus(connector);
+    const connectorOnlyContextualStatus = getConnectorOnlyContextualStatus(connector);
     const optionsInProgress = {
       count: 50,
       filters: {
@@ -302,13 +305,8 @@ class ConnectorComponent extends Component {
                     {t('Only contextual')}
                   </Typography>
                   <ItemBoolean
-                    status={
-                      connector.connector_type === 'INTERNAL_ENRICHMENT'
-                      || connector.connector_type === 'INTERNAL_IMPORT_FILE'
-                        ? connector.auto
-                        : null
-                    }
-                    label={connector.only_contextual ? t('Yes') : t('No')}
+                    status={connectorOnlyContextualStatus.status}
+                    label={connectorOnlyContextualStatus.label}
                   />
                 </Grid>
                 <Grid item={true} xs={6}>
@@ -316,13 +314,8 @@ class ConnectorComponent extends Component {
                     {t('Automatic trigger')}
                   </Typography>
                   <ItemBoolean
-                    status={
-                      connector.connector_type === 'INTERNAL_ENRICHMENT'
-                      || connector.connector_type === 'INTERNAL_IMPORT_FILE'
-                        ? connector.auto
-                        : null
-                    }
-                    label={connector.auto ? t('Yes') : t('No')}
+                    status={connectorTriggerStatus.status}
+                    label={connectorTriggerStatus.label}
                   />
                 </Grid>
                 <Grid item={true} xs={12}>
@@ -519,6 +512,7 @@ const Connector = createRefetchContainer(
         active
         auto
         only_contextual
+        connector_trigger_filters
         connector_type
         connector_scope
         connector_state

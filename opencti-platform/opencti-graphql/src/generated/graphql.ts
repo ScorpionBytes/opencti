@@ -3404,6 +3404,7 @@ export type Connector = BasicObject & InternalObject & {
   connector_scope?: Maybe<Array<Scalars['String']['output']>>;
   connector_state?: Maybe<Scalars['String']['output']>;
   connector_state_reset?: Maybe<Scalars['Boolean']['output']>;
+  connector_trigger_filters?: Maybe<Scalars['String']['output']>;
   connector_type?: Maybe<Scalars['String']['output']>;
   connector_user_id?: Maybe<Scalars['ID']['output']>;
   created_at?: Maybe<Scalars['DateTime']['output']>;
@@ -31226,6 +31227,7 @@ export type ConnectorResolvers<ContextType = any, ParentType extends ResolversPa
   connector_scope?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   connector_state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   connector_state_reset?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  connector_trigger_filters?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   connector_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   connector_user_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
