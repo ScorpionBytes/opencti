@@ -8,6 +8,7 @@ export default class DashboardWidgetsPageModel {
   private labelPerspective?: 'entities' | 'relationships' | 'audits';
 
   filters = new FiltersPageModel(this.page);
+  titleField = new TextFieldPageModel(this.page, 'Title', 'text');
 
   constructor(private page: Page) {}
 
@@ -31,4 +32,28 @@ export default class DashboardWidgetsPageModel {
     const filtersLabelField = new TextFieldPageModel(this.page, `label (${this.labelPerspective})`, 'text');
     return filtersLabelField.fill(label);
   }
+
+  validateFilters() {
+    return this.page.getByRole('button', { name: 'validate' }).click();
+  }
+
+  createWidget() {
+    return this.page.getByRole('button', { name: 'create' }).click();
+  }
+
+  // region Premade widgets
+
+  async createNumberOfMalwaresWidget() {
+    await this.openWidgetModal();
+    await this.selectWidget('Number');
+    await this.selectPerspective('Entities');
+    await this.fillLabel('Number of malwares');
+    await this.filters.addFilter('Entity type', 'Malware', false);
+    await this.filters.addFilter('Label', 'e2e');
+    await this.validateFilters();
+    await this.titleField.fill('Number of malwares');
+    return this.createWidget();
+  }
+
+  // endregion
 }

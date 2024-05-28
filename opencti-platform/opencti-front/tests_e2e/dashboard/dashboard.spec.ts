@@ -125,9 +125,5 @@ test('TMP DASHBOARD WIDGETS', async ({ page }) => {
   await dashboardForm.getCreateButton().click();
   await dashboardPage.getItemFromList(dashboardName).click();
 
-  await widgetsPage.openWidgetModal();
-  await widgetsPage.selectWidget('Number');
-  await widgetsPage.selectPerspective('Entities');
-  await widgetsPage.fillLabel('Number of malwares');
-  await widgetsPage.filters.addFilter('Entity type', 'malware');
+  await widgetsPage.createNumberOfMalwaresWidget();
 });
