@@ -203,7 +203,7 @@ const RootCaseRftComponent = ({ queryRef, caseId }) => {
               path="/content/*"
               element={
                 <StixCoreObjectContentRoot
-                  stixCoreObject={report}
+                  stixCoreObject={caseData}
                   isContainer={true}
                 />
               }
