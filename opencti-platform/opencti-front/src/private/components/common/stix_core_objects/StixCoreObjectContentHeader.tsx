@@ -4,6 +4,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { Link } from 'react-router-dom';
 import { DifferenceOutlined } from '@mui/icons-material';
 import { VectorPolygon } from 'mdi-material-ui';
+import Box from '@mui/material/Box';
 import { useFormatter } from '../../../../components/i18n';
 
 interface StixCoreObjectContentHeaderProps {
@@ -18,7 +19,11 @@ const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeader
   const { t_i18n } = useFormatter();
 
   return (
-    <div>
+    <Box sx={{
+      margin: '-80px 20px 0 20px',
+      float: 'right',
+    }}
+    >
       {modes.includes('content') && (
         <Tooltip title={t_i18n('Content view')}>
           <ToggleButton
@@ -29,7 +34,7 @@ const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeader
           >
             <VectorPolygon
               fontSize="small"
-              color={currentMode === 'content' ? 'primary' : 'inherit'}
+              color={currentMode === 'mapping' ? 'inherit' : 'primary'}
             />
           </ToggleButton>
         </Tooltip>
@@ -44,12 +49,12 @@ const StixCoreObjectContentHeader: FunctionComponent<StixCoreObjectContentHeader
           >
             <DifferenceOutlined
               fontSize="small"
-              color={currentMode === 'content' ? 'primary' : 'inherit'}
+              color={currentMode === 'mapping' ? 'primary' : 'inherit'}
             />
           </ToggleButton>
         </Tooltip>
       )}
-    </div>
+    </Box>
   );
 };
 

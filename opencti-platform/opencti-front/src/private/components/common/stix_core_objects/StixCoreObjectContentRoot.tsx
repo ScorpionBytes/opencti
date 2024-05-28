@@ -1,22 +1,26 @@
 import React, { FunctionComponent } from 'react';
 import StixCoreObjectContentHeader from '@components/common/stix_core_objects/StixCoreObjectContentHeader';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import ContainerContent from '@components/common/containers/ContainerContent';
 import StixCoreObjectContent from '@components/common/stix_core_objects/StixCoreObjectContent';
 
 interface StixCoreObjectContentRootProps {
   stixCoreObject: any;
+  isContainer: boolean;
 }
 
 const StixCoreObjectContentRoot: FunctionComponent<StixCoreObjectContentRootProps> = ({
-  stixCoreObject,
+  stixCoreObject, isContainer,
 }) => {
+  const { pathname } = useLocation();
+  const currentMode = pathname.endsWith('/mapping') ? 'mapping' : 'content';
+  const modes = isContainer ? ['content', 'mapping'] : [];
   return (
     <>
       <StixCoreObjectContentHeader
-        currentMode={'content'}
-        modes={['content', 'mapping']}
+        currentMode={currentMode}
+        modes={modes}
       />
       <Routes>
         <Route
