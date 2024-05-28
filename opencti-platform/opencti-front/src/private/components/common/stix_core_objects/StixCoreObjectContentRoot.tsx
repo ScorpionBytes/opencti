@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import StixCoreObjectContentHeader from '@components/common/stix_core_objects/StixCoreObjectContentHeader';
 import { Route, Routes } from 'react-router-dom';
-import StixDomainObjectContent from '@components/common/stix_domain_objects/StixDomainObjectContent';
+
 import ContainerContent from '@components/common/containers/ContainerContent';
+import StixCoreObjectContent from '@components/common/stix_core_objects/StixCoreObjectContent';
 
 interface StixCoreObjectContentRootProps {
   stixCoreObject: any;
@@ -26,14 +27,14 @@ const StixCoreObjectContentRoot: FunctionComponent<StixCoreObjectContentRootProp
             />
           }
         />
+        <Route
+          path="/"
+          element={
+            <StixCoreObjectContent
+              stixCoreObject={stixCoreObject}
+            />}
+        />
       </Routes>
-      <Route
-        path="/"
-        element={
-          <StixDomainObjectContent
-            stixDomainObject={stixCoreObject}
-          />}
-      />
     </>
   );
 };
