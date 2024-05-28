@@ -3,6 +3,7 @@ import { expect, test } from '../fixtures/baseFixtures';
 import DashboardPage from '../model/dashboard.pageModel';
 import DashboardDetailsPage from '../model/dashboardDetails.pageModel';
 import DashboardFormPage from '../model/form/dashboardForm.pageModel';
+import DashboardWidgetsPageModel from '../model/DashboardWidgets.pageModel';
 
 /**
  * Content of the test
@@ -108,4 +109,25 @@ test('Dashboard CRUD', async ({ page }) => {
 
   // ---------
   // endregion
+});
+
+test('TMP DASHBOARD WIDGETS', async ({ page }) => {
+  const dashboardPage = new DashboardPage(page);
+  const dashboardForm = new DashboardFormPage(page);
+  const widgetsPage = new DashboardWidgetsPageModel(page);
+
+  await page.goto('/dashboard/workspaces/dashboards');
+
+  await dashboardPage.openButtonModal().hover();
+  await dashboardPage.addNewDashboard().click();
+  const dashboardName = `Dashboard - ${uuid()}`;
+  await dashboardForm.nameField.fill(dashboardName);
+  await dashboardForm.getCreateButton().click();
+  await dashboardPage.getItemFromList(dashboardName).click();
+
+  await widgetsPage.openWidgetModal();
+  await widgetsPage.selectWidget('Number');
+  await widgetsPage.selectPerspective('Entities');
+  await widgetsPage.fillLabel('Number of malwares');
+  await widgetsPage.filters.addFilter('Entity type', 'malware');
 });
